@@ -1,3 +1,50 @@
 import comidas.*
 import comensales.*
 import cocina.*
+
+test "comidas"{
+	
+	const hambur1 = new HambueguesaDeCarne( panUtilizado=panCasero)
+	assert.equals(80,hambur1.valoracion())
+	const hambur2 = new HamburguesaVegetariana(panUtilizado=panMasaMadre)
+	assert.equals(122,hambur2.valoracion())
+	const provo1 = new Provoleta(tieneEspecias=true)
+	assert.equals(true,provo1.esEspecial()) 
+	const parri1 = new Parrillada()
+	const asado1 = new Corte( nombre="asado",peso=250,calidad=10)
+	const entrania1 = new Corte(nombre="entraña",calidad=7,peso=200)
+	const chori1 = new Corte(nombre="chorizo",calidad=8,peso=50)
+	parri1.agregarCortes(asado1)
+	parri1.agregarCortes(chori1)
+	parri1.agregarCortes(entrania1)
+	assert.equals(147,parri1.valoracion())
+}
+test "comensales"{
+	const vege1 = new Vegetariano(peso=6500)
+	const provo2 = new Provoleta(peso=190,tieneEspecias=true)
+	const hambur2 = new HamburguesaVegetariana(peso=250,panUtilizado=panMasaMadre) 
+	const hambur3 = new HamburguesaVegetariana(peso=250,panUtilizado=panMasaMadre)
+	vege1.comer(provo2)
+	vege1.comer(hambur2)
+	vege1.comer(hambur3)
+	assert.equals(true,vege1.satisfecho())
+	
+	const popu1 = new HambrePopular(peso=85000)
+	const asado = new Corte(peso=250,calidad=10)
+	const entra = new Corte(peso=200,calidad=7)
+	const chori = new Corte(peso=50,calidad=8)
+	popu1.comer(asado)
+	popu1.comer(entra)
+	popu1.comer(chori)
+	assert.equals(false,popu1.satisfecho())
+	
+	const hambur4 = new HambueguesaDeCarne(peso=250,panUtilizado=panMasaMadre)
+	const hector = new PaladarFino()
+	assert.equals(true,hector.leAgrada(hambur4))
+	
+	const javier = new PaladarFino()
+	const hambur5 = new HambueguesaDeCarne(peso=250,panUtilizado=panCasero)
+	assert.equals(false,javier.leAgrada(hambur5))
+	
+	
+}
